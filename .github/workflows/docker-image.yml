@@ -15,4 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      env:
+        USER: ${{ secrets.USER }}
+        PASS: ${{ secrets.PASS }}   
+      run: |        
+        docker build . --file dockerfile.dockerfile --tag rahul2001docker/devops-flask-webserver-task-3:v1
+        docker login -u $USER -p $PASS        
+        docker push rahul2001docker/devops-flask-webserver-task-3:v1
